@@ -4,6 +4,9 @@ import ast
 from time import sleep
 from utils import clean_dir
 from constants import DEFAULT_DIR, DEFAULT_MODEL, DEFAULT_MAX_TOKENS
+from dotenv import load_dotenv
+
+load_dotenv()  # take environment variables from .env.
 
 
 def generate_response(system_prompt, user_prompt, *args):
@@ -123,13 +126,13 @@ def main(prompt, directory=DEFAULT_DIR, file=None):
         """You are an AI developer who is trying to write a program that will generate code for the user based on their intent.
 
     When given their intent, create a complete, exhaustive list of filepaths that the user would write to make the program.
-
-    only list the filepaths you would write, and return them as a python list of strings.
-    do not add any other explanation, only return a python list of strings.
+    Your output should be a python list of strings, where each string is a filepath.
+    Do not add any markup or explanation.
     """,
         prompt,
     )
-    print(filepaths_string)
+    print(f"filepaths_string: <{filepaths_string}>")
+
     # parse the result into a python list
     list_actual = []
     try:
